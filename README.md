@@ -16,20 +16,32 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 Its function is automatic: it hooks into Langchain.rb methods to capture LLM calls and report them to the Datadog LLM Observability API.
 
-Configure with the following environment variables:
+Configure with the following environment variables or Ruby methods:
 
-`DD_SITE` (optional, default: `datadoghq.com`)
-The Datadog site to submit your LLM data.
+- `DD_SITE` (optional, default: `datadoghq.com`)
+  ```ruby
+  Langchain::Datadog.site = 'datadoghq.com'
+  ```
+  The Datadog site to submit your LLM data.
 
-`DD_API_KEY` (required)
-Your Datadog API key.
+- `DD_API_KEY` (required)
+  ```ruby
+  Langchain::Datadog.api_key = '1a2b3c4d5e6f'
+  ```
+  Your Datadog API key.
 
-`DD_LLMOBS_ENABLED` (optional, default: `1`)
-Toggle to disable submitting data to LLM Observability.
+- `DD_LLMOBS_ENABLED` (optional, default: `1`)
+  ```ruby
+  Langchain::Datadog.enabled = true
+  ```
+  Toggle to disable submitting data to LLM Observability.
 
-`DD_LLMOBS_ML_APP` (required)
-The name of your LLM application, service, or project, under which all traces and spans are grouped. This helps distinguish between different applications or experiments.
-See [Application naming guidelines](https://docs.datadoghq.com/llm_observability/setup/api/#application-naming-guidelines) for allowed characters and other constraints.
+- `DD_LLMOBS_ML_APP` (required)
+  ```ruby
+  Langchain::Datadog.ml_app = 'langchainrb_datadog'
+  ```
+  The name of your LLM application, service, or project, under which all traces and spans are grouped. This helps distinguish between different applications or experiments.
+  See [Application naming guidelines](https://docs.datadoghq.com/llm_observability/setup/api/#application-naming-guidelines) for allowed characters and other constraints.
 
 ## Development
 

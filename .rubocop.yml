@@ -9,3 +9,6 @@ Style/StringLiterals:
 
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: single_quotes
+
+Style/RescueModifier:
+  Enabled: false
