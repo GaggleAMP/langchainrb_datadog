@@ -1,24 +1,35 @@
-# LangchainrbDatadog
+# Langchain.rb Datadog
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/langchainrb_datadog`. To experiment with that code, run `bin/console` for an interactive prompt.
+Enables LLM observability with Datadog for Langchain.rb.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    $ bundle add langchainrb_datadog
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+    $ gem install langchainrb_datadog
 
 ## Usage
 
-TODO: Write usage instructions here
+Its function is automatic: it hooks into Langchain.rb methods to capture LLM calls and report them to the Datadog LLM Observability API.
+
+Configure with the following environment variables:
+
+`DD_SITE` (optional, default: `datadoghq.com`)
+The Datadog site to submit your LLM data.
+
+`DD_API_KEY` (required)
+Your Datadog API key.
+
+`DD_LLMOBS_ENABLED` (optional, default: `1`)
+Toggle to disable submitting data to LLM Observability.
+
+`DD_LLMOBS_ML_APP` (required)
+The name of your LLM application, service, or project, under which all traces and spans are grouped. This helps distinguish between different applications or experiments.
+See [Application naming guidelines](https://docs.datadoghq.com/llm_observability/setup/api/#application-naming-guidelines) for allowed characters and other constraints.
 
 ## Development
 
@@ -28,7 +39,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/ebababi/langchainrb_datadog.
+Bug reports and pull requests are welcome on GitHub at https://github.com/GaggleAMP/langchainrb_datadog.
 
 ## License
 
