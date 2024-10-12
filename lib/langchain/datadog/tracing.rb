@@ -36,11 +36,15 @@ module Langchain
 
       # Starts a new workflow span.
       def self.workflow(input = nil, name: nil, &block)
+        return yield unless Datadog.enabled?
+
         span(input, name:, kind: 'workflow', &block)
       end
 
       # Starts a new agent span.
       def self.agent(input = nil, name: nil, &block)
+        return yield unless Datadog.enabled?
+
         span(input, name:, kind: 'agent', &block)
       end
 
