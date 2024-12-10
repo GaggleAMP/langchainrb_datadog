@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'faraday'
-  spec.add_dependency 'langchainrb', '~> 0.17.1'
+  spec.add_dependency 'langchainrb', '>= 0.17.1'
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
