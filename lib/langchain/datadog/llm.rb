@@ -72,7 +72,8 @@ module Langchain
 
       def input(parameters)
         case parameters
-        in { messages: messages } then { messages: }
+        in { messages: messages }
+          { messages: messages.map { |message| transform_content(message) } }
         in { prompt: value } then { value: }
         in { text: value } then { value: }
         else nil
@@ -110,6 +111,17 @@ module Langchain
 
         metrics.empty? ? nil : metrics
       end
+
+      def transform_content(message) = {
+        content: (if (content = message[:content]).is_a?(Array)
+                    content.map do |chunk|
+                      chunk[:text] || chunk.dig(:image_url, :url)
+                    end.compact.join
+                  else
+                    content
+                  end),
+        role: message[:role]
+      }
     end
   end
 end

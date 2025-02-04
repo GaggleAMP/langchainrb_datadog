@@ -7,6 +7,7 @@ require_relative 'datadog/version'
 require_relative 'datadog/tracing'
 require_relative 'datadog/llm'
 require_relative 'datadog/vectorsearch'
+require_relative 'datadog/assistant'
 
 module Langchain
   # Datadog LLM Observability integration with Langchain.rb.
@@ -87,3 +88,7 @@ Zeitwerk::Loader.eager_load_namespace(Langchain::Vectorsearch) rescue Zeitwerk::
 Langchain::Vectorsearch::Base.subclasses.each do |klass|
   klass.prepend Langchain::Datadog::Vectorsearch
 end
+
+# Prepend the Datadog::Assistant module to the Langchain::Assistant class to
+# capture LLM calls and report them to the Datadog LLM Observability API.
+Langchain::Assistant.prepend Langchain::Datadog::Assistant
