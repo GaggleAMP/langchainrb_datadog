@@ -13,8 +13,7 @@ module Langchain
 
       # Returns the active span ID.
       def self.active_span_id
-        @active_span_id ||
-          (::Datadog::Tracing.active_span&.id if defined? ::Datadog)
+        @active_span_id
       end
 
       # Returns the active parent span ID.
