@@ -22,6 +22,12 @@ RSpec.describe Langchain::Datadog::LLM do
     it 'calls the super method and returns a response' do
       expect(subject.chat(messages: [{ content: 'hello' }])).to be_a(Langchain::LLM::BaseResponse)
     end
+
+    it 'forwards keyword arguments as a single params hash' do
+      subject.chat(messages: [{ content: 'hello' }])
+
+      expect(subject.last_chat_params).to eq(messages: [{ content: 'hello' }])
+    end
   end
 
   describe '#complete' do

@@ -5,7 +5,11 @@ require_relative 'test_llm_response'
 class TestLLM < Langchain::LLM::Base
   prepend Langchain::Datadog::LLM
 
-  def chat(_params = {})
+  attr_reader :last_chat_params
+
+  def chat(params = {})
+    @last_chat_params = params
+
     TestLLMResponse.new({ completions: 'chat response' })
   end
 

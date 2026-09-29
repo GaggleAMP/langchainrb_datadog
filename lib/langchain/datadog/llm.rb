@@ -7,36 +7,37 @@ module Langchain
     module LLM
       include Langchain::Datadog::Tracing
 
-      def chat(params = {}, ...)
-        return super unless Datadog.enabled?
+      def chat(params = {}, **kwargs, &block)
+        params = params.merge(kwargs) if kwargs.any?
+        return super(params, &block) unless Datadog.enabled?
 
         parameters = chat_parameters.to_params(params)
 
-        span(parameters) { super }
+        span(parameters) { super(params, &block) }
       end
 
-      def complete(prompt:, **)
-        return super unless Datadog.enabled?
+      def complete(prompt:, **kwargs)
+        return super(prompt: prompt, **kwargs) unless Datadog.enabled?
 
         parameters = { prompt: }
 
-        span(parameters) { super }
+        span(parameters) { super(prompt: prompt, **kwargs) }
       end
 
-      def embed(text:, **)
-        return super unless Datadog.enabled?
+      def embed(text:, **kwargs)
+        return super(text: text, **kwargs) unless Datadog.enabled?
 
         parameters = { text: }
 
-        span(parameters, kind: 'embedding') { super }
+        span(parameters, kind: 'embedding') { super(text: text, **kwargs) }
       end
 
-      def summarize(text:, **)
-        return super unless Datadog.enabled?
+      def summarize(text:, **kwargs)
+        return super(text: text, **kwargs) unless Datadog.enabled?
 
         parameters = { text: }
 
-        span(parameters, kind: 'task') { super }
+        span(parameters, kind: 'task') { super(text: text, **kwargs) }
       end
 
       private
